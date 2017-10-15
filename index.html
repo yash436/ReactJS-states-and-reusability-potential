@@ -12,50 +12,43 @@
     <div id="app"></div>
     <script type="text/babel">
 
-    var CounterChallenge = React.createClass({
-      getInitialState: function() {
-        return {
-          count: 0
+    class StateChallengeComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { count: 0 }
+            this.add = this.add.bind(this);
         }
-      },
-      incrementCount: function(value) {
-        this.setState({
-          count: this.state.count + value
-        })
-      },
-      getDefaultProps: function() {
-        return {
-          valueOne: 1,
-          valueTwo: 5,
-          valueThree: 10,
-          text: 'Add'
+        add(value) {
+            this.setState({
+                count: this.state.count + value
+            })
         }
-      },
-      alert: function() {
-        alert('Button Clicked')
-      },
-      render: function() {
-        return (
-          <div className="container">
-            <h1>Count: {this.state.count}</h1>
-            <Button style="btn blue-btn" text={`${this.props.text} ${this.props.valueOne}`} value={this.props.valueOne} clickHandler={this.incrementCount.bind(this, this.props.valueOne)} />
-            <Button style="btn green-btn" text={`${this.props.text} ${this.props.valueTwo}`} value={this.props.valueTwo} clickHandler={this.incrementCount.bind(this, this.props.valueTwo)} />
-            <Button style="btn purple-btn" text={`${this.props.text} ${this.props.valueThree}`} value={this.props.valueThree} clickHandler={this.incrementCount.bind(this, this.props.valueThree)} />
-            <Button text="Alert!" clickHandler={this.alert} />
-          </div>
-        )
-      }
-    });
-
-    var Button = function(props) {
-      return (
-        <button className={props.style} value={props.value} onClick={props.clickHandler}>{props.text}</button>
-      )
+        render() {
+            return (
+                <div className="container">
+                    <h1>Count: {this.state.count}</h1>
+                    <Btn style="btn blue-btn" text={`${this.props.text} ${this.props.valueOne}`} value={this.props.valueOne} clickHandler={() => this.add(this.props.valueOne)} />
+                    <Btn style="btn green-btn" text={`${this.props.text} ${this.props.valueTwo}`} value={this.props.valueTwo} clickHandler={() => this.add(this.props.valueTwo)} />
+                    <Btn style="btn purple-btn" text={`${this.props.text} ${this.props.valueThree}`} value={this.props.valueThree} clickHandler={() => this.add(this.props.valueThree)} />
+                </div>
+            )
+        }
     };
 
+    StateChallengeComponent.defaultProps = {
+        valueOne: 1,
+        valueTwo: 5,
+        valueThree: 10,
+        text: 'Add'
+    }
+
+    const Btn = (props) => {
+        return <button className={props.style} value={props.value} onClick={props.clickHandler}>{props.text}</button>;
+    }
+
     ReactDOM.render(
-      <CounterChallenge valueOne={100} valueTwo={1000} valueThree={10000}/>,
-      document.getElementById('app')
+        <StateChallengeComponent valueOne={10} valueTwo={50} valueThree={100} />,
+        document.getElementById('app')
     );
     </script>
   </body>
