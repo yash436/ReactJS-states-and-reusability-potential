@@ -18,28 +18,18 @@
           count: 0
         }
       },
-      incrementCountByOne: function(value) {
+      incrementCount: function(value) {
         this.setState({
-          count: this.state.count + 1
-        })
-      },
-      incrementCountByFive: function() {
-        this.setState({
-          count: this.state.count + 5
-        })
-      },
-      incrementCountByTen: function() {
-        this.setState({
-          count: this.state.count + 10
+          count: this.state.count + value
         })
       },
       render: function() {
         return (
           <div className="container">
             <h1>Count: {this.state.count}</h1>
-            <button className="btn blue-btn" onClick={this.incrementCountByOne}>Add 1</button>
-            <button className="btn green-btn" onClick={this.incrementCountByFive}>Add 5</button>
-            <button className="btn purple-btn" onClick={this.incrementCountByTen}>Add 10</button>
+            <button onClick={this.incrementCount.bind(this, 1)} className="btn blue-btn">Add 1</button>
+            <button onClick={this.incrementCount.bind(this, 5)} className="btn green-btn">Add 5</button>
+            <button onClick={this.incrementCount.bind(this, 10)} className="btn purple-btn">Add 10</button>
           </div>
         )
       }
